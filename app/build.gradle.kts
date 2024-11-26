@@ -60,4 +60,14 @@ dependencies {
     //Dagger - Hilt
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-compiler:2.48")
+
+    // Airbnb lottie animation
+    implementation("com.airbnb.android:lottie:5.2.0")
+
+    // Intuit ssp & sdp
+    implementation ("com.intuit.sdp:sdp-android:1.1.0")
+    implementation ("com.intuit.ssp:ssp-android:1.1.0")
+
+    // Preferences DataStore
+    implementation("androidx.datastore:datastore-preferences:1.1.0-beta01")
 }
