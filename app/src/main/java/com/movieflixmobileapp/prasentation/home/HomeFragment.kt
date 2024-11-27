@@ -5,10 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.movieflixmobileapp.R
 import com.movieflixmobileapp.databinding.FragmentHomeBinding
-import com.movieflixmobileapp.databinding.FragmentIntroBinding
-import com.movieflixmobileapp.databinding.FragmentSplashBinding
 
 
 class HomeFragment : Fragment() {
