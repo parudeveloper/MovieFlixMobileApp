@@ -1,12 +1,20 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id ("kotlin-parcelize")
 
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
 }
 
 android {
+    val properties = Properties().apply {
+        load(project.rootProject.file("local.properties").inputStream())
+    }
+    val movieApiKey = properties.getProperty("movieApiKey")
+
     namespace = "com.movieflixmobileapp"
     compileSdk = 35
 
@@ -22,11 +30,15 @@ android {
 
     buildTypes {
         release {
+            buildConfigField("String", "MOVIE_API_KEY", movieApiKey)
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+
+        debug {
+            buildConfigField("String", "MOVIE_API_KEY", movieApiKey)
+            applicationIdSuffix=".debug"
+            isDebuggable = true
         }
     }
     compileOptions {
@@ -39,6 +51,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -70,4 +83,19 @@ dependencies {
 
     // Preferences DataStore
     implementation("androidx.datastore:datastore-preferences:1.1.0-beta01")
+
+    //Retrofit2
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.okhttp3:okhttp:5.0.0-alpha.3")
+    implementation ("com.squareup.retrofit2:converter-scalars:2.9.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3")
+
+    // ViewModel
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    // LiveData
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0")
+    implementation ("androidx.lifecycle:lifecycle-extensions:2.2.0")
+
 }
