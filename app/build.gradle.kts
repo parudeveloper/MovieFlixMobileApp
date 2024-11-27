@@ -67,4 +67,7 @@ dependencies {
     // Intuit ssp & sdp
     implementation ("com.intuit.sdp:sdp-android:1.1.0")
     implementation ("com.intuit.ssp:ssp-android:1.1.0")
+
+    // Preferences DataStore
+    implementation("androidx.datastore:datastore-preferences:1.1.0-beta01")
 }
