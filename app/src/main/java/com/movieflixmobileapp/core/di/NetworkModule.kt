@@ -1,9 +1,13 @@
 package com.movieflixmobileapp.core.di
 
+import android.app.Application
 import android.content.Context
 import com.movieflixmobileapp.BuildConfig
 import com.movieflixmobileapp.core.utils.Constants
-import com.movieflixmobileapp.data.ApiClient
+import com.movieflixmobileapp.data.network.ApiClient
+import com.movieflixmobileapp.data.remote.RemoteDataSource
+import com.movieflixmobileapp.data.repository.MovieInfoRepositoryImpl
+import com.movieflixmobileapp.domine.repository.MovieInfoRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +25,8 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 object NetworkModule {
-
+    @Singleton
+    @Provides
     fun provideNetworkClient(@ApplicationContext context: Context): OkHttpClient {
         return OkHttpClient().newBuilder()
             .cache(
@@ -86,6 +91,15 @@ object NetworkModule {
     @Singleton
     fun providesApiClient(retrofit: Retrofit): ApiClient {
         return retrofit.create(ApiClient::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providesMovieInfoRepositoryImpl(
+        remoteDataSource: RemoteDataSource,
+        application: Application
+    ): MovieInfoRepository {
+        return MovieInfoRepositoryImpl(remoteDataSource,application)
     }
 
 }
