@@ -3,6 +3,7 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id ("kotlin-parcelize")
 
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
@@ -28,13 +29,6 @@ android {
     }
 
     buildTypes {
-     /*   release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }*/
         release {
             buildConfigField("String", "MOVIE_API_KEY", movieApiKey)
             isMinifyEnabled = false
@@ -96,4 +90,12 @@ dependencies {
     implementation ("com.squareup.okhttp3:okhttp:5.0.0-alpha.3")
     implementation ("com.squareup.retrofit2:converter-scalars:2.9.0")
     implementation ("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3")
+
+    // ViewModel
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    // LiveData
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0")
+    implementation ("androidx.lifecycle:lifecycle-extensions:2.2.0")
+
 }
