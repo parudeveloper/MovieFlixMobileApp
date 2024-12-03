@@ -1,6 +1,7 @@
 package com.movieflixmobileapp.data.repository
 
 import android.app.Application
+import android.util.Log
 import com.example.movieflix.domain.model.HomeFeedData
 import com.example.movieflix.domain.model.MovieList
 import com.example.movieflix.domain.model.MovieVideoResultList
@@ -23,16 +24,15 @@ class MovieInfoRepositoryImpl(
 ) : MovieInfoRepository {
     override fun getHomeFeedData(): Flow<NetworkResults<HomeFeedData>> = flow {
         emit(NetworkResults.Loading())
-
         try {
 
             withContext(Dispatchers.IO){
                 val upcomingMovieListDef = async { remoteDataSource.getUpcomingMovies() }
 
-
                 val wholeMoviesList= mutableListOf<HomeFeedResponse>()
 
                 val upcomingMovieList = upcomingMovieListDef.await()
+                Log.i("MovieInfoRepositoryImpl",upcomingMovieList.body()?.results.toString())
                 wholeMoviesList.add(HomeFeedResponse(Constants.UPCOMING_MOVIES, upcomingMovieList.body()?.results!!))
 
             }

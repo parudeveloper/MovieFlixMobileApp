@@ -1,5 +1,6 @@
 package com.movieflixmobileapp.prasentation.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,7 +26,11 @@ class HomeInfoViewModel @Inject constructor(private val getMovieInfo: GetMovieIn
     fun getMovieInfoData() {
         viewModelScope.launch {
             getMovieInfo.getMovieInfo().onEach {
+                Log.i("HomeInfoViewModel",it.toString())
+
                 _homeFeedList.value = it
+                Log.i("HomeInfoViewModel",_homeFeedList.value.toString())
+
             }.launchIn(this)
         }
     }
